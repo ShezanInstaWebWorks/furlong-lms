@@ -1,11 +1,10 @@
-
 import * as React from "react";
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import {  useForm } from "react-hook-form";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { useForm } from "react-hook-form";
 import Q1 from "../module 2/quiz2questions/Q1";
 import Q2 from "../module 2/quiz2questions/Q2";
 import Q3 from "../module 2/quiz2questions/Q3";
@@ -15,9 +14,17 @@ import Q6 from "../module 2/quiz2questions/Q6";
 import Q7 from "../module 2/quiz2questions/Q7";
 import Q8 from "../module 2/quiz2questions/Q8";
 import Q9 from "../module 2/quiz2questions/Q9";
-import { makeStyles } from '@material-ui/core/styles';
-import { Box, Button, Container, Divider, Grid, Step, StepButton, Stepper } from "@material-ui/core";
-
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  Grid,
+  Step,
+  StepButton,
+  Stepper,
+} from "@material-ui/core";
 
 const stepStyle = {
   "&.MuiStepIcon-root": {
@@ -44,10 +51,9 @@ const stepStyle = {
   },
 };
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    width: "100%",
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -83,41 +89,39 @@ export default function Quiz2() {
   const classes = useStyles();
 
   function getSteps() {
-    return ["1", "2", "3", "4", "5", "6", "7","8","9"];
-  };
-  function getStepContent(step,setValue) {
+    return ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+  }
+  function getStepContent(step, setValue) {
     switch (step) {
       case 0:
-        return <Q1 control={control}/>;
+        return <Q1 control={control} />;
       case 1:
-        return <Q2 control={control}/>;
+        return <Q2 control={control} />;
       case 2:
-        return <Q3 control={control}/>;
+        return <Q3 control={control} />;
       case 3:
-        return <Q4 control={control}/>;
+        return <Q4 control={control} />;
       case 4:
-        return <Q5 control={control}/>;
+        return <Q5 control={control} />;
       case 5:
-        return <Q6 control={control}/>;
+        return <Q6 control={control} />;
       case 6:
         return <Q7 control={control} />;
-        case 7:
+      case 7:
         return <Q8 control={control} />;
-        case 8:
-        return <Q9 control={control} setValue={setValue}/>;
-  
+      case 8:
+        return <Q9 control={control} setValue={setValue} />;
+
       default:
         return "unknown";
     }
   }
   const steps = getSteps();
-  const { handleSubmit,setValue, control } = useForm({});
+  const { handleSubmit, setValue, control } = useForm({});
   const handleFinalSubmit = (data) => {
     console.log(data);
   };
 
- 
-  
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState({});
 
@@ -155,14 +159,12 @@ export default function Quiz2() {
     setActiveStep(step);
   };
 
-
   const [expanded, setExpanded] = React.useState("panel1");
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : true);
   };
- 
-  
+
   return (
     <Box p={4}>
       <Accordion>
@@ -175,8 +177,8 @@ export default function Quiz2() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget.
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -186,103 +188,110 @@ export default function Quiz2() {
         expanded={expanded === "panel2"}
         onChange={handleChange("panel2")}
       >
-        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header"expandIcon={<ExpandMoreIcon />}>
+        <AccordionSummary
+          aria-controls="panel2d-content"
+          id="panel2d-header"
+          expandIcon={<ExpandMoreIcon />}
+        >
           <Typography>Questions</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <>
-          <Grid>
-           
-              <Grid>
-               
-                  <Typography style={{ fontWeight: "bold" }}>
-                    {" "}
-                    Questions 
-                  </Typography>
-                  </Grid>
-          
-            <br/>
-            <Divider />
-            <br />
-            <Stepper activeStep={activeStep} sx={stepStyle}>
-              {steps.map((step, index) => {
-                return (
-                  <Step>
-                    <StepButton color="inherit" onClick={handleStep(index)}>
-                      {step}
-                    </StepButton>
-                  </Step>
-                );
-              })}
-            </Stepper>
-            <br />
             <Grid>
-            <form onSubmit={handleSubmit((data) => handleFinalSubmit(data))}>
-              <>
-                {getStepContent(activeStep)}
-                <br />
-                <Container sx={{ marginTop: "20px" }} maxWidth={"md"}>
-                  <Box sx={{ flexGrow: 1 }}>
-                    <Grid container spacing={2}>
-                      <Grid xs={6}>
-                        {activeStep === 0 ? null : (
-                          <Button
-                            // sx={{
-                            //   bgcolor: "#494949",
-                            //   color: "white",
-                            //   "&:hover": {
-                            //     background: "#494949",
-                            //   },
-                            // }}
-                            onClick={handleBack}
-                            variant="contained" color="primary"
-                          >
-                            Back
-                          </Button>
-                        )}
-                      </Grid>
-                      <Grid xs={6} style={{ textAlign: "right" }}>
-                        {activeStep === 8 ? null : (
-                          <Button
-                            // sx={{
-                            //   mr: 1,
-                            //   bgcolor: "#494949",
-                            //   color: "white",
-                            //   width: "30px",
-                            //   "&:hover": {
-                            //     background: "#494949",
-                            //   },
-                            // }}
-                            onClick={handleNext}
-                            variant="contained" color="primary"
-                          >
-                            NEXT
-                          </Button>
-                        )}
-                        {activeStep === 8 ? (
-                          <Button
-                            // sx={{
-                            //   mr: 1,
-                            //   bgcolor: "#494949",
-                            //   color: "white",
-                            //   width: "30px",
-                            //   "&:hover": {
-                            //     background: "#494949",
-                            //   },
-                            // }}
-                            variant="contained" color="secondary"
-                            type="submit"
-                          >
-                            SUBMIT
-                          </Button>
-                        ) : null}
-                      </Grid>
-                    </Grid>
-                  </Box>
-                </Container>
-              </>
-            </form>
-            </Grid>
+              <Grid>
+                <Typography style={{ fontWeight: "bold" }}>
+                  {" "}
+                  Questions
+                </Typography>
+              </Grid>
+
+              <br />
+              <Divider />
+              <br />
+              <Stepper activeStep={activeStep} sx={stepStyle}>
+                {steps.map((step, index) => {
+                  return (
+                    <Step key={index}>
+                      <StepButton color="inherit" onClick={handleStep(index)}>
+                        {step}
+                      </StepButton>
+                    </Step>
+                  );
+                })}
+              </Stepper>
+              <br />
+              <Grid>
+                <form
+                  onSubmit={handleSubmit((data) => handleFinalSubmit(data))}
+                >
+                  <>
+                    {getStepContent(activeStep)}
+                    <br />
+                    <Container sx={{ marginTop: "20px" }} maxWidth={"md"}>
+                      <Box sx={{ flexGrow: 1 }}>
+                        <Grid container spacing={2}>
+                          <Grid xs={6}>
+                            {activeStep === 0 ? null : (
+                              <Button
+                                // sx={{
+                                //   bgcolor: "#494949",
+                                //   color: "white",
+                                //   "&:hover": {
+                                //     background: "#494949",
+                                //   },
+                                // }}
+                                onClick={handleBack}
+                                variant="contained"
+                                color="primary"
+                              >
+                                Back
+                              </Button>
+                            )}
+                          </Grid>
+                          <Grid xs={6} style={{ textAlign: "right" }}>
+                            {activeStep === 8 ? null : (
+                              <Button
+                                // sx={{
+                                //   mr: 1,
+                                //   bgcolor: "#494949",
+                                //   color: "white",
+                                //   width: "30px",
+                                //   "&:hover": {
+                                //     background: "#494949",
+                                //   },
+                                // }}
+                                onClick={handleNext}
+                                variant="contained"
+                                color="primary"
+                              >
+                                NEXT
+                              </Button>
+                            )}
+                            {activeStep === 8 ? (
+                              <Button
+                                // sx={{
+                                //   mr: 1,
+                                //   bgcolor: "#494949",
+                                //   color: "white",
+                                //   width: "30px",
+                                //   "&:hover": {
+                                //     background: "#494949",
+                                //   },
+                                // }}
+                                variant="contained"
+                                color="secondary"
+                                type="submit"
+                              >
+                                SUBMIT
+                              </Button>
+                            ) : null}
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    </Container>
+                  </>
+                </form>
+              </Grid>
             </Grid>
           </>
         </AccordionDetails>
