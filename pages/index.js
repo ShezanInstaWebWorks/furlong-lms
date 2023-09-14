@@ -1,7 +1,7 @@
 
 import styles from '../styles/Home.module.css'
 import { Divider, Typography } from '@material-ui/core'
-import CardCom from './CardCom'
+import CardCom from '../module 1/CardCom'
 
 export default function Home() {
   return (
@@ -16,7 +16,6 @@ Courses(3)
       <br/>
       <Divider />
       <br/>
-     
       <CardCom/>
     </div>
   )
